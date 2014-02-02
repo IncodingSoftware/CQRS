@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Incoding.MetaLanguage.Contrib</id>
+    <version>1.1.0.0</version>
+    <title>Incoding Meta Language Contrib</title>
+    <authors>Vlad Kopachinsky</authors>
+    <owners>Vlad Kopachinsky</owners>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <projectUrl>http://incframework.com/</projectUrl>
+    <iconUrl>http://incframework.com/favicon.ico</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Extend default functional incoding meta language.</description>
+    <summary>Extend default functional incoding meta language.
+      1.Jquery UI
+      2.Maps
+      3.Other jquery plugin</summary>
+    <releaseNotes>Upgrade for framework 1.1</releaseNotes>
+    <copyright>Copyright  2013</copyright>
+    <language>en-US</language>
+    <dependencies>
+      <group targetFramework=".NETFramework4.0">
+        <dependency id="Incoding.MetaLanguage" version="1.1.279.1201" />
+        <dependency id="jQuery.UI.Combined" version="1.10.2" />
+        <dependency id="jQuery.BlockUI" version="2.60" />
+        <dependency id="Pnotify" version="1.2.2" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

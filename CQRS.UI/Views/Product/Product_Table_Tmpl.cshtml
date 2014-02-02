@@ -1,0 +1,23 @@
+﻿  @{
+
+      using (var template = Html.Incoding().Template<GetProductsQuery.Response>())
+      {
+          <table class="table table-bordered table-striped" >
+              <thead>
+                  <tr>
+                      <th>Title</th>
+                      <th>Price</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @using (var each = template.ForEach())
+                  {
+                      <tr>
+                          <td>@each.For(r => r.Title)</td>
+                          <td>@each.For(r => r.Price)</td>
+                      </tr>
+                  }             
+              </tbody>
+          </table>
+      }
+  }

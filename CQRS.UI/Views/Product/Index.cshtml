@@ -1,0 +1,62 @@
+﻿@using Incoding.Extensions
+@using Incoding.MetaLanguageContrib
+@model GetProductsQuery
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    string containerId = Guid.NewGuid().ToString();
+}
+<div class="form-inline">
+    <div class="form-group">
+        <label class="control-label">Title</label>
+        @Html.TextBoxFor(r => r.Title)     
+    </div> 
+    <div class="form-group">
+        <label class="control-label">To</label>     
+        @Html.TextBoxFor(r => r.To) 
+    </div>  
+    <div class="form-group">
+        <label class="control-label">From</label>    
+        @Html.TextBoxFor(r => r.From)    
+    </div>
+    @(Html.When(JqueryBind.Click)
+          .Do()
+          .Direct()
+          .OnSuccess(dsl => dsl.With(r => r.Id(containerId)).Core().Trigger.Incoding())
+          .AsHtmlAttributes(new {@class="btn-primary"})
+          .ToButton("Search"))
+</div>
+
+
+<div id="dialogId"></div>
+<div class="btn-toolbar text-right">
+    @(Html.When(JqueryBind.Click)
+          .Do()
+          .AjaxGet(Url.Action("Add", "Product"))
+          .OnSuccess(dsl => dsl.With(r => r.Id("dialogId"))
+                               .Behaviors(inDsl =>
+                                              {
+                                                  inDsl.Core().Insert.Html();
+                                                  inDsl.JqueryUI().Dialog.Open(options =>
+                                                                                   {
+                                                                                       options.Title = "Add";
+                                                                                       options.Modal = true;
+                                                                                   });
+                                              })
+              )
+          .AsHtmlAttributes(new { @class = "btn-success" })
+          .ToButton("Add"))
+</div>
+
+@(Html.When(JqueryBind.InitIncoding)
+      .Do()
+      .AjaxGet(Url.Action("Fetch", "Product", new
+                                                  {
+                                                          Title = Html.Selector().Name(r => r.Title),
+                                                          To = Html.Selector().Name(r => r.To),
+                                                          From = Html.Selector().Name(r => r.From),
+                                                  }))
+      .OnSuccess(dsl => dsl.Self().Core().Insert.WithTemplate(Url.Action("Template", "Product").ToAjaxGet()).Html())
+      .AsHtmlAttributes(new { id = containerId })
+      .ToDiv())

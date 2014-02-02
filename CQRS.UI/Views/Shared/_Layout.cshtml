@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html >
+    <head>
+        
+        @Html.Incoding().Link(Url.Content("~/Content/bootstrap.min.css"))
+        @Html.Incoding().Link(Url.Content("~/Content/bootstrap-theme.min.css"))
+        @Html.Incoding().Link(Url.Content("~/Content/themes/base/jquery.ui.all.css"))
+                         
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/underscore.min.js")"> </script>                
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.form.min.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.history.js")"> </script>        
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars-1.1.2.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.framework.min.js")"> </script>                      
+        <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.meta.language.contrib.js")"> </script>                      
+        <script>
+            TemplateFactory.Version = '@Guid.NewGuid().ToString()';
+        </script>
+    </head>
+    @Html.Incoding().RenderDropDownTemplate()
+    <body>
+        <div class="container">
+            <nav role="navigation" class="navbar navbar-default">
+                <div class="navbar-header">
+                    @{
+                        string urlCrm = Url.Action("Index", "Product");
+                        string urlCrmByMVD = Url.Dispatcher().AsView("~/Views/Product/Index_MVD.cshtml");
+                    }
+                    @(Html.When(JqueryBind.InitIncoding)
+                          .Do()
+                          .Direct()
+                          .OnSuccess(dsl =>
+                                         {
+                                             dsl.With(r => r.Tag(HtmlTag.Li)).Core().JQuery.Attributes.RemoveClass("active");
+                                             dsl.With(r => r.EqualsAttribute(HtmlAttribute.Href, urlCrm).Closest(HtmlTag.Li)).Core().JQuery.Attributes.AddClass("active")
+                                                .If(builder => builder.Is(() => Selector.JS.Location.Href.IsContains(urlCrm)));
+                                             dsl.With(r => r.EqualsAttribute(HtmlAttribute.Href, urlCrmByMVD).Closest(HtmlTag.Li)).Core().JQuery.Attributes.AddClass("active")
+                                                .If(builder => builder.Is(() => Selector.JS.Location.Href.IsContains(urlCrmByMVD)));
+                                         })
+                          .AsHtmlAttributes()
+                          .ToDiv())
+                    <ul class="nav navbar-nav">
+                        <li>                            
+                            <a href="@urlCrm">CRM</a>
+                        </li> 
+                        <li>                            
+                            <a href="@urlCrmByMVD">CRM powerd by MVD</a>  
+                        </li>
+                    </ul>
+                </div>            
+            </nav>                      
+            @RenderBody()
+        </div>
+    </body>
+</html>

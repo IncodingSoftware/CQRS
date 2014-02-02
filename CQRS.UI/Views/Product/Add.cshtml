@@ -1,0 +1,30 @@
+﻿@using Incoding.MetaLanguageContrib
+@model AddProductCommand
+@using (Html.BeginForm("Add", "Product", FormMethod.Post, Html.When(JqueryBind.Submit)
+                                                              .DoWithPreventDefault()
+                                                              .Submit()
+                                                              .OnSuccess(dsl =>
+                                                                             {
+                                                                                 dsl.With(r => r.Id("dialogId")).JqueryUI().Dialog.Close();
+                                                                                 dsl.Utilities.Document.Reload();
+                                                                             })
+                                                              .AsHtmlAttributes()))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-xs-2">Title</label>  
+        <div class="col-xs-10">
+                @Html.TextBoxFor(r => r.Title)    
+            </div>  
+        </div> 
+        <div class="form-group">
+            <label class="control-label col-xs-2">Price</label>  
+            <div class="col-xs-10">
+                @Html.TextBoxFor(r => r.Price)    
+            </div>
+        </div>  
+    </div>
+    <div class="navbar-form text-right">
+        <input type="submit" value="Save" class="btn-primary"/>
+    </div>
+}
