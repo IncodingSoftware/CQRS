@@ -3,6 +3,7 @@
     #region << Using >>
 
     using Incoding.CQRS;
+    using Incoding.Extensions;
 
     #endregion
 
@@ -12,20 +13,21 @@
 
         public string Title { get; set; }
 
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         #endregion
 
         public override void Execute()
         {
-            decimal dPrice = 0;
-            decimal.TryParse(Price, out dPrice);
-
             Repository.Save(new Product
                                 {
                                         Title = Title, 
-                                        Price = dPrice
+                                        Price = Price
                                 });
+            EventBroker.Publish(new OnAuditEvent
+                                    {
+                          Message = "New product {0} by {1}".F(Title, Price)
+                                    });
         }
     }
 }

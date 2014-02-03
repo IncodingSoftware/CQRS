@@ -26,17 +26,17 @@
             dispatcher.Push(new AddProductCommand
                                 {
                                         Title = "Milk",
-                                        Price = "10"
+                                        Price = 10
                                 });
             dispatcher.Push(new AddProductCommand
                                 {
                                         Title = "Bred",
-                                        Price = "5"
+                                        Price = 5
                                 });
             dispatcher.Push(new AddProductCommand
                                 {
                                         Title = "Tea",
-                                        Price = "25"
+                                        Price = 25
                                 });
         }
 

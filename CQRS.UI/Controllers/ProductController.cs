@@ -2,8 +2,11 @@
 {
     #region << Using >>
 
+    using System;
+    using System.Net;
     using System.Web.Mvc;
     using CQRS.Domain;
+    using Incoding;
     using Incoding.MvcContrib;
 
     #endregion
@@ -21,6 +24,19 @@
         [HttpPost]
         public ActionResult Add(AddProductCommand input)
         {
+            /*if (!ModelState.IsValid)
+                return IncodingResult.Error(ModelState);
+
+            try
+            {
+                dispatcher.Push(input);
+                return IncodingResult.Success();
+            }
+            catch (IncWebException exception)
+            {
+                ModelState.AddModelError(exception.Property,exception.Message);
+                return IncodingResult.Error(ModelState);
+            }*/
             return TryPush(input);
         }
 

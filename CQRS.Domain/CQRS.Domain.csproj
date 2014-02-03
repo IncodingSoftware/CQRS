@@ -69,12 +69,15 @@
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Operations\Command\AddProductCommand.cs" />
     <Compile Include="Operations\Query\GetProductsQuery.cs" />
-    <Compile Include="Persistence\Product.cs" />
+    <Compile Include="Persistences\Audit.cs" />
+    <Compile Include="Persistences\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setups\InitDataBaseSetUp.cs" />
     <Compile Include="Setups\InitProductSetUp.cs" />
-    <Compile Include="Specification\ProductBetweenPriceWhere.cs" />
-    <Compile Include="Specification\ProductByTitleWhere.cs" />
+    <Compile Include="Specifications\ProductBetweenPriceWhere.cs" />
+    <Compile Include="Specifications\ProductByTitleWhere.cs" />
+    <Compile Include="Subscribers\Event\OnAuditEvent.cs" />
+    <Compile Include="Subscribers\Imp\AuditSubscriber.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
